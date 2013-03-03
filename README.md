@@ -1,7 +1,7 @@
 WWW::Dailymotion::Download
 ==========================
 
-Similar to xaicron's effort [WWW::YouTube::Download](http://search.cpan.org/perldoc?WWW::YouTube::Download),
+Similar to [xaicron](https://github.com/xaicron/)'s effort [WWW::YouTube::Download](http://search.cpan.org/perldoc?WWW::YouTube::Download) (also on [github](https://github.com/xaicron/p5-www-youtube-download)),
 this script is a Perl replacement for what the python
 based youtube-dl does: 
 help a user download videos from Dailymotion.com.
