@@ -23,12 +23,12 @@ my $title_of_the_page;
 my $found = 0;
 
 GetOptions (
-	"h|help" => \$help,
-	"v|version" => \$version,
-	"o|output=s" => \$destination,
-	"q|quiet" => \$quiet,
-	"t|title" => \$title,
-	"g|get-url" => \$get_url
+	"h|help"	=> \$help,
+	"v|version"	=> \$version,
+	"o|output=s"	=> \$destination,
+	"q|quiet"	=> \$quiet,
+	"t|title"	=> \$title,
+	"g|get-url"	=> \$get_url
 );
 
 my ($url) = @ARGV;
@@ -180,6 +180,14 @@ you'll need the following in order to run it:
 This script requires the C<URI::Escape> module and the C<Getopt::Long>.  It also requires
 wget.
 
+=head1 AUTHOR
+
+CPAN ~GNUTOO.
+
+=head1 LICENSE
+
+GNU GPL 3.
+
 =pod OSNAMES
 
 linux
@@ -187,5 +195,6 @@ linux
 =pod SCRIPT CATEGORIES
 
 Web
+
 
 =cut
