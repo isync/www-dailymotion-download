@@ -1,13 +1,14 @@
 #!/usr/bin/perl
 
-my $VERSION = 0.1;
-
 use strict;
 use warnings;
 use URI::Escape;
 use Getopt::Long;
+use LWP::UserAgent;
+use JSON;
 
-my $VERSION = "0.1";
+use lib 'lib';
+use WWW::Dailymotion::Download;
 
 my $home =$ENV{HOME};
 my $pwd = $ENV{PWD};
@@ -42,7 +43,7 @@ if (  (!defined($url)) and
 	(!defined($get_url))and
 	(($version eq 1)) 
     ){
-die "$VERSION\n";
+die "$WWW::Dailymotion::Download::VERSION\n";
 }
 
 
@@ -63,104 +64,20 @@ options:
 ";
 }
 
+use Data::Dumper;
 
-unless (-e "$home/.dailymotion" ){
-mkdir "$home/.dailymotion";
+my $wdd = WWW::Dailymotion::Download->new( debug => 1 );
+for my $url (@ARGV){
+	print "Downloading $url\n";
+	$wdd->download($url);
 }
+exit;
 
-chdir "$home/.dailymotion";
-system "wget","-q", "-O","temp.html", "$url";
-open(HTML, "temp.html");
-
-my $line;
-while ($line = <HTML>){
-
-#<meta name="title" content="Dailymotion : Richard Stallman Free software Song" />
-	if ($title){
-		if ($line =~/<meta name="title" content="Dailymotion\s*:\s*(.*)"\s*\/>/){
-			$title_of_the_page = $1;
-# 			$title_of_the_page= decode("utf8", $title_of_the_page);
-			$title_of_the_page = decode_entities($title_of_the_page);
-			$title_of_the_page =~ s/\//of/;
-			$title_of_the_page =~ s/\s+/_/g;
-			}
-}
-
-#addVariable("url", "http%3A%2F%2Fdailymotion.com%2Fget%2F14%2F320x240%2Fflv%2F3891914.flv%3Fkey%3Dd23c5b681ac9f687d518f744b8e3058b130b08f")
-	
-# 	if ($line =~ /addVariable\(\"url\",\s*\"(.*)\"\)/){
-	if ($line =~ /addVariable\(\"video\",\s*\"(.*)\"\)/){
-		$url = $1;
-		$found = 1;
-		}
-}
-
-if($found eq 0) {
-die"several things could have happened:\n*or you typed the wrong url\n*or the video has been removed for copyright reasons\n*or dailymotion changed its javascript codes\n";
-}
-
-
-# if (! defined($destination) ){
-# $destination = "$pwd";
-# }
-
-if (defined($destination) and ($destination !~ /\//) ){
-$destination = "$pwd/$destination";
-}
-
-if ($title) {
-	if (! defined($destination) ){
-		$destination = "$pwd/$title_of_the_page";
-	}
-	else {
-		$destination = "$destination/$title_of_the_page"
-	}
-}
-
-if (defined($destination) and ($destination !~/.flv/) ){
-$destination = "$destination.flv"
-}
-
-my $garbage;
-$url = uri_unescape($url);
-# print "$url\n";
-($url,$garbage) = split (/\|\|/,$url);
-# print "$url\n";
-$url =~ s/\@\@spark//;
-# print "$url\n";
-$url = "http://www.dailymotion.com$url";
-# die $url;
-
-if ($get_url) {
-print "$url\n";
-}
-
-else {
-
-if ($destination){
-	if ($quiet){
-		system "wget","-q","-O","$destination", "$url";
-		}
-	else {
-		system "wget","-O","$destination", "$url";
-		}
-}
-else {
-	chdir $pwd;
-	if ($quiet){
-		system "wget","-q","$url";
-		}
-	else {
-		system "wget","$url";
-		}
-}
-
-}
 
 
 =head1 NAME
 
-dailymotion-dl - a script to download from dailymotion
+dailymotion-dl - a script to download videos from Dailymotion
 
 =head1 DESCRIPTION
 
@@ -198,3 +115,5 @@ Web
 
 
 =cut
+
+
