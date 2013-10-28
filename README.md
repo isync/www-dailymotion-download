@@ -8,9 +8,20 @@ help a user download videos from Dailymotion.com.
 
 ## Update
 
-Found some time to worik on it. Got it back into a barely usable state again.
+Found some time to work on it. Got it back into a barely usable state again.
 
 Anyone willing to help out? Happy fork'ing!
+
+
+## Installation
+
+So far, there's no makefile. So just do this to give it a try:
+
+* wget https://github.com/isync/www-dailymotion-download/archive/master.zip
+* unzip master.zip
+* cd www-dailymotion-download-master
+* perl dailymotion-download some-video-url
+
 
 ## Origin
 
