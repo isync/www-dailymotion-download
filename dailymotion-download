@@ -2,10 +2,7 @@
 
 use strict;
 use warnings;
-use URI::Escape;
 use Getopt::Long;
-use LWP::UserAgent;
-use JSON;
 
 use lib 'lib';
 use WWW::Dailymotion::Download;
@@ -64,16 +61,14 @@ options:
 ";
 }
 
-use Data::Dumper;
 
 my $wdd = WWW::Dailymotion::Download->new( debug => 1 );
 for my $url (@ARGV){
 	print "Downloading $url\n";
 	$wdd->download($url);
 }
-exit;
 
-
+=pod
 
 =head1 NAME
 
@@ -86,16 +81,6 @@ This script is a command line script similar to the python script youtube-dl tha
 =head1 README
 
 This script is a command line script similar to the python script youtube-dl that downloads from youtube
-you'll need the following in order to run it:
-*the URI::Escape perl module
-*the Getopt::Long perl module
-*wget.which is normaly included in any linux distribution
-
-
-=head1 PREREQUISITES
-
-This script requires the C<URI::Escape> module and the C<Getopt::Long>.  It also requires
-wget.
 
 =head1 AUTHOR
 
@@ -105,15 +90,4 @@ CPAN ~GNUTOO.
 
 GNU GPL 3.
 
-=pod OSNAMES
-
-linux
-
-=pod SCRIPT CATEGORIES
-
-Web
-
-
 =cut
-
-

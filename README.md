@@ -6,7 +6,7 @@ this script is a Perl replacement for what the python
 based youtube-dl does: 
 help a user download videos from Dailymotion.com.
 
-## Origin
+## Update
 
 Found some time to worik on it. Got it back into a barely usable state again.
 

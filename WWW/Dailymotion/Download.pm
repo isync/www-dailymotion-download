@@ -3,6 +3,7 @@ package WWW::Dailymotion::Download;
 use LWP::UserAgent;
 use JSON::XS;
 use URI::Escape;
+use Data::Dumper;
 
 our $VERSION = 0.1;
 
@@ -13,8 +14,6 @@ sub new {
 		debug	=> undef,
 		@_
 	}, $class;
-
-	require Data::Dumper if $self->{debug} > 1;
 
 	print Data::Dumper::Dumper($self) if $self->{debug} > 1;
 
