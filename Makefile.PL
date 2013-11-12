@@ -6,7 +6,7 @@ WriteMakefile(
 #	AUTHOR		=> 'isync',
 	ABSTRACT	=> 'Library and command-line script to download videos from Dailymotion',
 	LICENSE		=> 'gpl',
-	VERSION_FROM	=> 'WWW/Dailymotion/Download.pm',
+	VERSION_FROM	=> 'lib/WWW/Dailymotion/Download.pm',
 	PREREQ_PM	=> {
 		'Getopt::Long' => 1,
 		'LWP::UserAgent' => 1,

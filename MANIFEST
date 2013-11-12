@@ -3,4 +3,4 @@ LICENSE
 README.md
 Makefile.PL
 dailymotion-download
-WWW/Dailymotion/Download.pm
+lib/WWW/Dailymotion/Download.pm
