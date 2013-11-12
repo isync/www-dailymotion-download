@@ -15,7 +15,15 @@ Anyone willing to help out? Happy fork'ing!
 
 ## Installation
 
-So far, there's no makefile. So just do this to give it a try:
+With Makefile.PL:
+* wget https://github.com/isync/www-dailymotion-download/archive/master.tar.gz
+* tar xvf master.tar.gz
+* cd www-dailymotion-download-master
+* perl Makefile.PL
+* make
+* sudo make install
+
+Or without installation:
 
 * wget https://github.com/isync/www-dailymotion-download/archive/master.zip
 * unzip master.zip
