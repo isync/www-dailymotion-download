@@ -5,7 +5,7 @@ use JSON::XS;
 use URI::Escape;
 use Data::Dumper;
 
-our $VERSION = 0.1;
+our $VERSION = 0.2;
 
 sub new {
 	my $class = shift;

@@ -47,17 +47,11 @@ die "$WWW::Dailymotion::Download::VERSION\n";
 
 elsif ((!defined($url)) or (defined($help)) ) {
 die "
-usage: dailymotion-dl [options] video_url
+usage: dailymotion-download <video_url>
 
 options:
   -h, --help            print this help text and exit
   -v, --version         print program version and exit
-
-  -o FILE, --output=FILE
-                        output video file name
-  -q, --quiet           activates quiet mode
-  -t, --title           use title in file name
-  -g, --get-url         print final video URL only
 ";
 }
 
@@ -72,19 +66,27 @@ for my $url (@ARGV){
 
 =head1 NAME
 
-dailymotion-dl - a script to download videos from Dailymotion
+dailymotion-download - command-line script to download videos from Dailymotion
+
+=head1 SYNOPSIS
+
+	dailymotion-download <URL>
 
 =head1 DESCRIPTION
 
-This script is a command line script similar to the python script youtube-dl that downloads from youtube
+Similar to the script being shipped with L<Yuji|http://search.cpan.org/~xaicron/>)'s effort
+L<WWW::YouTube::Download>, this script is a Perl replacement for what the python based youtube-dl
+does: help a user download videos from Dailymotion.com.
 
-=head1 README
+=head1 HISTORY
 
-This script is a command line script similar to the python script youtube-dl that downloads from youtube
+I've found the script L<dailymotion-dl.pl|http://backpan.perl.org/authors/id/G/GN/GNUTOO/dailymotion-dl.pl>
+abandoned on CPAN. No user email was to be found, no description, and it had been deleted from CPAN.
+The BackPAN had a copy, with the original GNU open source license intact.
 
 =head1 AUTHOR
 
-CPAN ~GNUTOO.
+Originally, CPAN ~GNUTOO.
 
 =head1 LICENSE
 

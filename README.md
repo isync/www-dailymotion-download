@@ -33,7 +33,7 @@ Or without installation:
 
 ## Origin
 
-I've found the scipt [dailymotion-dl.pl](http://backpan.perl.org/authors/id/G/GN/GNUTOO/dailymotion-dl.pl)
+I've found the script [dailymotion-dl.pl](http://backpan.perl.org/authors/id/G/GN/GNUTOO/dailymotion-dl.pl)
 abandoned on the CPAN. No user email was to be found, no description,
 and it had been deleted from CPAN. The Backpan had a
 copy, with the original GNU open source license intact.
