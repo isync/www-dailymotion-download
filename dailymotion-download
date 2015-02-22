@@ -25,6 +25,7 @@ GetOptions (
 	"v|version"	=> \$version,
 	"o|output=s"	=> \$destination,
 	"q|quiet"	=> \$quiet,
+	"d|debug+"	=> \my $debug,
 	"t|title"	=> \$title,
 	"g|get-url"	=> \$get_url
 );
@@ -47,7 +48,7 @@ die "$WWW::Dailymotion::Download::VERSION\n";
 
 elsif ((!defined($url)) or (defined($help)) ) {
 die "
-usage: dailymotion-download <video_url>
+usage: dailymotion-download <video_url> [<video_url> ...]
 
 options:
   -h, --help            print this help text and exit
@@ -56,7 +57,7 @@ options:
 }
 
 
-my $wdd = WWW::Dailymotion::Download->new( debug => 1 );
+my $wdd = WWW::Dailymotion::Download->new( debug => $debug );
 for my $url (@ARGV){
 	print "Downloading $url\n";
 	$wdd->download($url);
