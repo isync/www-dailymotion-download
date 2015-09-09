@@ -43,9 +43,16 @@ sub download {
 		return 0;
 	}
 
+	# find best quality
+	my $url;
+	for(@urls){
+		$url = shift @urls;
+		last if defined($url);
+	}
+
 	## download
 	print "WWW::Dailymotion::Download: downloading to ". encode_utf8($title) ."_dailymotion-". $id .".mp4 ..." if $self->{debug};
-	my $response = $self->{ua}->get( $urls[0], ':content_file' => encode_utf8($title) .'_dailymotion-'. $id .'.mp4');
+	my $response = $self->{ua}->get($url , ':content_file' => encode_utf8($title) .'_dailymotion-'. $id .'.mp4');
  
 	if( $response->is_success ){
 		print " OK\n" if $self->{debug};
