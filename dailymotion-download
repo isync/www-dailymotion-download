@@ -51,6 +51,7 @@ die "
 usage: dailymotion-download <video_url> [<video_url> ...]
 
 options:
+  -d, --debug           print debug output, repeat for more verbose
   -h, --help            print this help text and exit
   -v, --version         print program version and exit
 ";
@@ -84,6 +85,8 @@ does: help a user download videos from Dailymotion.com.
 I've found the script L<dailymotion-dl.pl|http://backpan.perl.org/authors/id/G/GN/GNUTOO/dailymotion-dl.pl>
 abandoned on CPAN. No user email was to be found, no description, and it had been deleted from CPAN.
 The BackPAN had a copy, with the original GNU open source license intact.
+
+Since then it has evolved quite a bit and doesn't resemble the original script anymore.
 
 =head1 AUTHOR
 

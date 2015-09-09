@@ -6,7 +6,7 @@ use URI::Escape;
 use Data::Dumper;
 use Encode;
 
-our $VERSION = 0.2;
+our $VERSION = 0.3;
 
 sub new {
 	my $class = shift;
@@ -28,11 +28,11 @@ sub download {
 	die "Could not get video id!" unless $id;
 
 	## fetch json
-	my $json = $self->fetch_json("http://www.dailymotion.com/sequence/full/$id");
+	my $json = $self->fetch_json("http://www.dailymotion.com/json/video/$id?fields=title,stream_h264_url,stream_h264_ld_url,stream_h264_hq_url,stream_h264_hd_url,stream_h264_hd1080_url");
 	die "Could not fetch and decode json!" unless $json;
 
 	## get title
-	my $title = $json->{config}->{metadata}->{title};
+	my $title = $json->{title};
 	print "WWW::Dailymotion::Download: title is: ". encode_utf8($title) ."\n";
 
 	## get video urls
@@ -91,64 +91,17 @@ sub get_video_urls {
 	my $json = shift;
 	my $video_id = shift;
 
-	my $string = "".Data::Dumper::Dumper($json);
-
-	my @lines = split(/\n/,$string);
-
-	my $manifest_url;
-	for my $line (@lines){
-		if( $line =~ /'autoURL' => 'http([^']+)/ ){
-			my $url = uri_unescape('http'.$1);
-			print "WWW::Dailymotion::Download::get_video_urls: json-manifest-url: $url \n";
-			$manifest_url = $url;
-			last;
-		}
-	}
-
-	# split auth
-	my ($frag,$auth) = split(/auth=/,$manifest_url,2);
-	print "WWW::Dailymotion::Download::get_video_urls: auth:$auth\n";
+	print "WWW::Dailymotion::Download::get_video_urls: dumper: ". Data::Dumper::Dumper($json) if $self->{debug};
 
 	my @urls = (
-		'http://www.dailymotion.com/cdn/H264-1920x1080/video/'. $video_id .'.mp4?auth='. $auth,
+		$json->{'stream_h264_hd1080_url'},
+		$json->{'stream_h264_hq_url'},
+		$json->{'stream_h264_hd_url'},
+		$json->{'stream_h264_ld_url'},
+		$json->{'stream_h264_url'},
 	);
 
 	return @urls;
-
-
-
-	### ignore unfinished code below, is for downloading segments
-
-	## fetch json
-	my $manifest = $self->fetch_json($manifest_url);
-	die "Could not fetch and decode json!" unless $manifest;
-
-	# print Data::Dumper::Dumper($manifest);
-
-	die "DM manifest seems to be invalid!" unless $manifest && ref($manifest) eq 'HASH';
-
-	my @url_hashes = @{ $manifest->{alternates} };
-	my @video_hashes;
-	for my $ref (reverse sort { $a->{height} <=> $b->{height} } @url_hashes){
-		print "WWW::Dailymotion::Download::get_video_urls: per-video manifest url: $ref->{template} \n";
-		push(@video_hashes, $ref);
-	}
-
-	print Data::Dumper::Dumper(\@video_hashes);
-
-	# prepare template
-	my ($host_template,$frag) = split(/\/sec\(/,$video_hashes[0]->{template},2); # URI->host()
-	print "WWW::Dailymotion::Download::get_video_urls: host_template:$host_template\n";
-
-	# let's fetch segment data for first (as of sort: the highest quality) video only
-
-	## fetch json
-	my $video_manifest = $self->fetch_json($video_hashes[0]->{template});
-	die "Could not fetch and decode json!" unless $video_manifest;
-
-	## todo: dl segments
-
-	print Data::Dumper::Dumper($video_manifest);
 }
 
 1;
